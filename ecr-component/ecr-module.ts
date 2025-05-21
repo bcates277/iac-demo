@@ -25,7 +25,7 @@ export interface RepositoryArgs {
 
   // The tags to assign to the ECR repository
   tags?: pulumi.Input<{ [key: string]: pulumi.Input<string> }>;
- 
+
   // The IAM role to create for the ECR repository
   createIamRole?: pulumi.Input<boolean>;
 
@@ -38,17 +38,23 @@ export interface RepositoryArgs {
 
 // Class to create an ECR repository with optional IAM role and policy
 export class EcrRepo extends pulumi.ComponentResource {
+  // Expose the created ECR repository as a public property
+  // This allows other resources to reference the ECR repository
   public readonly newRepo: aws.ecr.Repository;
+  // Expose the created ECR lifecycle policy as an optional public property
   public readonly ecrLifecyclePolicy?: aws.ecr.LifecyclePolicy;
+  // Expose the created IAM role as an optional public property
   public readonly iamRole?: aws.iam.Role;
+  // Expose the created IAM policy as an optional public property
   public readonly repositoryPolicy?: aws.iam.RolePolicy;
 
   // Constructor to create an ECR repository
   constructor(
-    name: string,
-    args: RepositoryArgs,
-    opts?: pulumi.CustomResourceOptions
+    name: string, // Logical name of the resource
+    args: RepositoryArgs, // Arguments for configuring the repository
+    opts?: pulumi.CustomResourceOptions // Optional Pulumi resource options
   ) {
+    // Call the parent constructor for Pulumi ComponentResource
     super("ecrdemo:aws:ecr", name, {}, opts);
 
     // Create a new ECR repository
@@ -62,14 +68,16 @@ export class EcrRepo extends pulumi.ComponentResource {
         imageTagMutability: args.imageTagMutability,
         tags: args.tags,
       },
-      { parent: this }
+      { parent: this } // Set this component as the parent
     );
 
-    // Optional IAM role to access the ECR repository
+    // If the user requested an IAM role for ECR access
     if (args.createIamRole) {
+      // Create an IAM role for the ECR repository
       this.iamRole = new aws.iam.Role(
         `${name}-ecr-role`,
         {
+          // Trust policy allowing EC2 instances to assume this role
           assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal({
             Service: "ec2.amazonaws.com",
           }),
@@ -77,6 +85,7 @@ export class EcrRepo extends pulumi.ComponentResource {
         { parent: this }
       );
 
+      // Define the IAM policy for ECR access
       const ecrPolicy = {
         Version: "2012-10-17",
         Statement: [
@@ -92,21 +101,24 @@ export class EcrRepo extends pulumi.ComponentResource {
               "ecr:CompleteLayerUpload",
               "ecr:GetAuthorizationToken",
             ],
-            Resource: this.newRepo.arn,
+            Resource: this.newRepo.arn, // Restrict to this repository
           },
         ],
       };
-
+      // Attach the policy to the IAM role
       this.repositoryPolicy = new aws.iam.RolePolicy(
         `${name}-ecr-policy`,
         {
-          role: this.iamRole.name,
-          policy: pulumi.output(ecrPolicy).apply(JSON.stringify),
+          role: this.iamRole.name, // Attach to the created IAM role
+          policy: pulumi.output(ecrPolicy).apply(JSON.stringify), // Converts to JSON
         },
         { parent: this }
       );
     }
-        if (args.lifecyclePolicy) {
+
+    // If the user requested a lifecycle policy for the ECR repository
+    if (args.lifecyclePolicy) {
+      // Create a lifecycle policy for the ECR repository
       this.ecrLifecyclePolicy = new aws.ecr.LifecyclePolicy(
         `${name}-lifecycle-policy`,
         {
@@ -129,7 +141,7 @@ export class EcrRepo extends pulumi.ComponentResource {
                 },
               ],
             })
-            .apply(JSON.stringify),
+            .apply(JSON.stringify), // Convert policy to JSON
         },
         { parent: this }
       );
@@ -144,4 +156,3 @@ export class EcrRepo extends pulumi.ComponentResource {
     });
   }
 }
-

@@ -93,6 +93,8 @@ https://www.pulumi.com/registry/packages/aws/api-docs/ecr/repository/#inputs
 
 // Show component and class in index.ts
 
+// The constructor is setting up a custom Pulumi component for creating an ECR repository. The super(...) call registers this component with Pulumi using a custom type string (ecrdemo:aws:ecr). Inside the body of the constructor (not shown yet), you'd typically create actual AWS resources like aws.ecr.Repository.
+
 // Why use pulumi.Input<string>?
 <!-- It gives your infrastructure code flexibility—you can pass either:
 a raw string (like "production"), or
