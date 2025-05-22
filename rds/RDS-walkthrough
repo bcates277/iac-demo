@@ -1,0 +1,18 @@
+*** RDS WALK THROUGH ***
+
+Add a modules folder if you don't have one
+Add in the rdsSecurityGroup module
+Add in the rds-module
+Add rds-index to index.ts
+
+*** Pulumi Secrets ***
+add secrets to index.ts
+create config file
+add secrets to index
+
+aws ec2 describe-vpcs
+-find your VPCid
+
+ pulumi config set vpcId --secret
+
+build the security group first to get the vpcSecurityGroupIDS

@@ -1,9 +1,10 @@
-** DEMO **
+# DEMO
 
 *** Create a new directory ***
-mkdir aws-pulumi
-cd aws-pulumi
+create / clone a repo from GitHub
+cd into the folder
 code .
+
 pulumi new
 
 // Show all the different pulumi projects you can make
@@ -42,7 +43,9 @@ Pulumi uses it to install libraries like @pulumi/aws, @pulumi/pulumi
 
 // Change my-bucket to the name of your bucket.
 
-// Pulumi will add a random suffix to the end of your bucket name because all S3 bucket names in AWS are global so they all must have a unique name. 
+// Pulumi will add a random suffix to the end of your 
+bucket name because all S3 bucket names in AWS are 
+global so they all must have a unique name. 
 
 // Next, the export makes the bucket name available as an output of your Pulumi program. 
 
@@ -54,10 +57,31 @@ aws config
 // Input your aws access key and secret access key. 
 // The IAM account I am using specific permissions for ECR, IAM, and S3
 
-*** Deploy Pulumi Stack ***
+*** Commit Changes ***
+
+*** Deploy Pulumi Stack to create Bucket***
 pulumi up
 
 pulumi destroy
+
+*** Return to presentation about Collaboration ***
+
+*** IAM GROUPS ****
+copy/paste IAM-groups.ts 
+
+pulumi up
+
+Pulumi destroy
+
+*** Return to Reliable and Recoverable ***
+
+*** Encrypt and securely store secrets ***
+
+Switch to RDS walkthrough
+
+
+
+If we have time:
 
 *** AWSX CROSSWALK ***
 https://www.pulumi.com/registry/packages/awsx/api-docs/ecr/repository/#repositoryencryptionconfiguration
@@ -71,19 +95,6 @@ https://www.pulumi.com/registry/packages/awsx/api-docs/ecr/repository/#repositor
 // Now we will use the AWS library to create a repo with a lifecycle policy and permissions.
 
 https://www.pulumi.com/registry/packages/aws/api-docs/ecr/repositorypolicy/
-
-*** PULUMI SECRETS ***
-
-// We have to use our account # for the identifier. This is where Pulumi Secrets can help encrypt plaintext secrets.
-
-pulumi config set mySecretValue --secret
-
-// Adds your encrypted secret to the yaml file
-
-*** CONFIG FILE ***
-
-// Create and show how to use the config file
-// Show exports again with the secret added
 
 *** ECR COMPONENTS ***
 https://www.pulumi.com/registry/packages/aws/api-docs/ecr/repository/#inputs

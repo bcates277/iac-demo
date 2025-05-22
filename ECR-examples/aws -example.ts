@@ -42,8 +42,8 @@ const ecrPolicy = aws.iam.getPolicyDocument({
       effect: "Allow",
       principals: [
         {
-          type: "AWS",
-          identifiers: ["****"],
+          type: "Service",
+          identifiers: ["ec2.amazonaws.com"],
         },
       ],
       actions: [
