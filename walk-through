@@ -9,8 +9,8 @@ pulumi new
 // Show all the different pulumi projects you can make
 // Select aws-typescript
 <!-- A stack in Pulumi is an isolated instance of a program with its own configuration, often used for different environments like dev, staging, or production. Each project can have multiple stacks, and one is created by default when you run pulumi new -->
-// Show files that come with Pulumi project
 
+// Show files that come with Pulumi project
 // index.ts is the main entry point to Pulumi. This is the main file where your Pulumi infrastructure code is written.
 It contains TypeScript code that defines cloud resources (e.g., AWS EC2 instances, S3 buckets, IAM roles).
 When you run pulumi up, Pulumi executes this file to deploy or update infrastructure.
