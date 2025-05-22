@@ -1,4 +1,6 @@
 import * as awsx from "@pulumi/awsx";
+import * as aws from "@pulumi/aws";
+import * as pulumi from "@pulumi/pulumi";
 
 const repositoryResource = new awsx.ecr.Repository("repositoryResource", {
     encryptionConfigurations: [{
@@ -23,6 +25,3 @@ const repositoryResource = new awsx.ecr.Repository("repositoryResource", {
     },
 });
 
-export const repositoryUrl = repositoryResource.repositoryUrl;
-export const repositoryArn = repositoryResource.arn;
-export const repositoryName = repositoryResource.name;

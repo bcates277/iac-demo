@@ -10,9 +10,8 @@ pulumi new
 // Select aws-typescript
 <!-- A stack in Pulumi is an isolated instance of a program with its own configuration, often used for different environments like dev, staging, or production. Each project can have multiple stacks, and one is created by default when you run pulumi new -->
 
-// Show files that come with Pulumi project
-// index.ts is the main entry point to Pulumi. This is the main file where your Pulumi infrastructure code is written.
-It contains TypeScript code that defines cloud resources (e.g., AWS EC2 instances, S3 buckets, IAM roles).
+*** Files in Pulumi Project ***
+// index.ts is the main entry point to Pulumi and the main file where your infrastructure code is written.
 When you run pulumi up, Pulumi executes this file to deploy or update infrastructure.
 
 // Pulumi.yaml This file defines the project name, runtime, and description. It tells Pulumi how to interpret your code and manage multiple stacks (e.g., dev, staging, prod).
@@ -20,7 +19,7 @@ When you run pulumi up, Pulumi executes this file to deploy or update infrastruc
 // tsconfig.json configures the TypeScript compiler for your project. 
 
 // package.json This file is standard in any Node.js/typescript project. It manages your dependencies, scripts, and project metadata.
-Pulumi uses it to install libraries like @pulumi/aws, @pulumi/pulumi, etc.
+Pulumi uses it to install libraries like @pulumi/aws, @pulumi/pulumi
 
  // In the index.ts, you can see our imports. 
 
@@ -36,12 +35,12 @@ Pulumi uses it to install libraries like @pulumi/aws, @pulumi/pulumi, etc.
 
 //(AWSx) is for AWS Crosswalk, we will go over this shortly.
 
+*** Example Bucket ***
+
 // Pulumi has given us an example of a bucket provisioned resource here.
 // The “new aws.s3.BucketV2” tells Pulumi to create a new S3 bucket using the AWS provider.
 
-// In pulumi all resources have both a logical name, how they are known inside pulumi and a physical name, how the resources are named in the cloud provider. 
-
-// my-bucket is the logical name of the resource in Pulumi. It doesn't control the actual name in AWS. It’s used in your Pulumi project to track and manage this bucket in the state file. 
+// Change my-bucket to the name of your bucket.
 
 // Pulumi will add a random suffix to the end of your bucket name because all S3 bucket names in AWS are global so they all must have a unique name. 
 
@@ -53,7 +52,7 @@ Pulumi uses it to install libraries like @pulumi/aws, @pulumi/pulumi, etc.
 aws config
 
 // Input your aws access key and secret access key. 
-// The IAM account I am using specific permissions for ECR and IAM
+// The IAM account I am using specific permissions for ECR, IAM, and S3
 
 *** Deploy Pulumi Stack ***
 pulumi up
@@ -63,9 +62,9 @@ pulumi destroy
 *** AWSX CROSSWALK ***
 https://www.pulumi.com/registry/packages/awsx/api-docs/ecr/repository/#repositoryencryptionconfiguration
 
-// Using asw crosswalk first to create a repo with a lifecycle policy attached. 
+// AWS Crosswalk is a library that simplifies and secures common infrastructure-as-code tasks in AWS by applying automatic best practices. So here we are combing creating a repo which will include the lifecycle policy 
 
-// AWS Crosswalk is a library that simplifies and secures common infrastructure-as-code tasks in AWS by applying automatic best practices. So here we are combing creating a repo and adding a lifecycle policy 
+ Use asw crosswalk first to create a repo with a lifecycle policy attached. 
 
 *** AWS LIBRARY ***
 

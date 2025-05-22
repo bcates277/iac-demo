@@ -43,7 +43,7 @@ const ecrPolicy = aws.iam.getPolicyDocument({
       principals: [
         {
           type: "AWS",
-          identifiers: ["074643188647"],
+          identifiers: ["****"],
         },
       ],
       actions: [
