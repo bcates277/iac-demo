@@ -20,7 +20,7 @@ const db = new RdsComponent("my-rds", {
   instanceIdentifier: "my-rds",
   dbName: "my-rds",
   username: "GraceS473284",
-  password: config.,
+  password: "myPassWoerd",
   subnetIds: ["subnet-0a4b110fd20a406e6", "subnet-07d52a5effbee9c92"],
   vpcSecurityGroupIds: [rdsSecurityGroup.securityGroup.id],
   tags: {
