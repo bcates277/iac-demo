@@ -48,7 +48,9 @@ aws configure
 
 *** Example Bucket ***
 
-// create new branch: git checkout -b feat-newBucket
+I want to demonstrate how to use this in a cicd pipeline
+
+*** create new branch: git checkout -b feat-newBucket ***
 
 // Pulumi has given us an example of a bucket provisioned resource here.
 // The “new aws.s3.BucketV2” tells Pulumi to create a new S3 bucket using the AWS provider.
@@ -74,6 +76,8 @@ global so they all must have a unique name.
 *** Deploy Pulumi Stack to create Bucket***
 pulumi up
 
+--- Show Bucket in aws console ---
+
 go back to main
 git pull
 
@@ -88,9 +92,12 @@ copy/paste IAM-groups.ts
 
 pulumi up
 
+--- SHOW AWS CONSOLE ---
+
 remove mary pulumi up
 
-Pulumi destroy
+--- SHOW AWS CONSOLE ---
+
 
 *** Return to TESTING ***
 
@@ -102,12 +109,13 @@ Switch to RDS walkthrough
 
 If we have time:
 
-*** AWSX CROSSWALK ***
+*** AWSX CROSSWALK LIBRARY ***
+
 https://www.pulumi.com/registry/packages/awsx/api-docs/ecr/repository/#repositoryencryptionconfiguration
 
-// AWS Crosswalk is a library that simplifies and secures common infrastructure-as-code tasks in AWS by applying automatic best practices. So here we are combing creating a repo which will include the lifecycle policy 
+// AWS Crosswalk is a library that simplifies and secures common infrastructure-as-code tasks in AWS by applying automatic best practices. 
 
- Use asw crosswalk first to create a repo with a lifecycle policy attached. 
+We will use AWS crosswalk first to create a repo with a lifecycle policy attached. 
 
 *** AWS LIBRARY ***
 
@@ -116,6 +124,7 @@ https://www.pulumi.com/registry/packages/awsx/api-docs/ecr/repository/#repositor
 https://www.pulumi.com/registry/packages/aws/api-docs/ecr/repositorypolicy/
 
 *** ECR COMPONENTS ***
+
 https://www.pulumi.com/registry/packages/aws/api-docs/ecr/repository/#inputs
 
 <!-- Another approach to keep your infrastructure organized and reusable is by using Pulumi components or modules. These keep your infrastructure setup into modular, maintainable units that can be easily imported into your main index.ts file. This not only promotes consistency in how your infrastructure is defined, but also simplifies replication across environments or projects. You can export an interface to define the expected inputs and then implement the component using a class for clarity and structure. -->

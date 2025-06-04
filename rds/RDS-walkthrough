@@ -1,4 +1,5 @@
 *** RDS WALK THROUGH ***
+RDS relational database service
 In this walkthrough I will show you how to use Pulumi Secrets and modules. 
 <!-- to keep you infrastructure organized and reusable you can use Pulumi components or modules. These keep your infrastructure setup modular, with maintainable units that can be easily imported into your main index.ts file. This promotes consistency in how your infrastructure is defined, but also simplifies replication across environments or projects. You can export an interface to define the expected inputs and then implement the component using a class structure. -->
 
@@ -7,16 +8,28 @@ Add in the rdsSecurityGroup module
 Add in the rds-module
 Add rds-index to index.ts
 
+*** do this off screen ***
+aws ec2 describe-vpcs
+-find your VPCid
+
+ pulumi config set vpcId --secret
+
+ setup config file
+
+ import config file to index:
+ import * as config from "./config";
+
+
+
 *** Pulumi Secrets ***
 Where there is config in this file is where a secret would need to go.
 add secrets to index.ts
 create config file
 add secrets to index
 
-*** do this off screen ***
-aws ec2 describe-vpcs
--find your VPCid
-
  pulumi config set vpcId --secret
+
+ While this is running, open up the floor to questions.
+ Show the Pulumi docs
 
 *** Return to Peer Code Reviews ***

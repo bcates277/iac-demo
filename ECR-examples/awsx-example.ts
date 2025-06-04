@@ -15,6 +15,7 @@ const repositoryResource = new awsx.ecr.Repository("repositoryResource", {
     lifecyclePolicy: {
         rules: [{
             tagStatus: awsx.ecr.LifecycleTagStatus.Any,
+            // Delete images that are older than 10 days
             maximumAgeLimit: 10,
         }],
         skip: false,

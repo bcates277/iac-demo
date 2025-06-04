@@ -10,6 +10,7 @@ const devs = new aws.iam.Group("devs", {
     path: "/users/",
 });
 
+// Create a policy that allows developers to describe EC2 instances.
 const myDeveloperPolicy = new aws.iam.GroupPolicy("my_developer_policy", {
     group: devs.id,
     policy: {
