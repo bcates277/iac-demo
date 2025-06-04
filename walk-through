@@ -1,0 +1,151 @@
+# DEMO
+
+*** Create a new directory ***
+create / clone a repo from GitHub
+cd into the folder
+code .
+
+pulumi new
+
+// Show all the different pulumi projects you can make
+// Select aws-typescript
+<!-- A stack in Pulumi is an isolated instance of a program with its own configuration, often used for different environments like dev, staging, or production. Each project can have multiple stacks, and one is created by default when you run pulumi new -->
+
+*** Files in Pulumi Project ***
+// *** index.ts is *** the main entry point to Pulumi and the main file where your infrastructure code is written.
+When you run pulumi up, Pulumi executes this file to deploy or update infrastructure.
+
+// *** Pulumi.yaml *** This file defines the project name, runtime, and description. It tells Pulumi how to interpret your code and manage multiple stacks (e.g., dev, staging, prod).
+
+// *** pulumi.stack.yaml *** The key-value pairs for any given stack are stored in your project’s stack settings file, which is automatically named Pulumi.<stack-name>.yaml
+
+// tsconfig.json configures the TypeScript compiler for your project. 
+
+// package.json This file is standard in any Node.js/typescript project. It manages your dependencies, scripts, and project metadata.
+Pulumi uses it to install libraries like @pulumi/aws, @pulumi/pulumi
+
+ // In the index.ts, you can see our imports. 
+
+// The Pulumi imports core Pulumi functionality, such as:
+** pulumi.Output
+** pulumi.Input
+** pulumi.ComponentResource
+** pulumi.Config
+
+//The second line you are importing the Pulumia AWS provider library. 
+
+//This imports all exported members of the Pulumi AWS package and groups them under the AWS namespace.
+
+//(AWSx) is for AWS Crosswalk, we will go over this shortly.
+
+*** AWS CONFIG ***
+// Before we deploy any resources, we will need to configure our AWS credentials in Pulumi.
+
+aws configure
+
+// Input your aws access key and secret access key. 
+// The IAM account I am using specific permissions for ECR, IAM, and S3
+
+*** Example Bucket ***
+
+I want to demonstrate how to use this in a cicd pipeline
+
+*** create new branch: git checkout -b feat-newBucket ***
+
+// Pulumi has given us an example of a bucket provisioned resource here.
+// The “new aws.s3.BucketV2” tells Pulumi to create a new S3 bucket using the AWS provider.
+
+// Change my-bucket to the name of your bucket.
+
+// Pulumi will add a random suffix to the end of your 
+bucket name because all S3 bucket names in AWS are 
+global so they all must have a unique name. 
+
+// Next, the export makes the bucket name available as an output of your Pulumi program. 
+
+*** CICD PIPELINE DEMO ***
+
+// git add -all
+// git commit -m "branch"
+// git push --set-upstream origin featbranch1
+
+// merge on github.com
+
+*** Commit Changes ***
+
+*** Deploy Pulumi Stack to create Bucket***
+pulumi up
+
+--- Show Bucket in aws console ---
+
+go back to main
+git pull
+
+pulumi destroy if not using CICD pipeline
+
+remove code and recommit if using cicd pipeline
+
+*** Return to presentation about Collaboration ***
+
+*** IAM GROUPS ****
+copy/paste IAM-groups.ts 
+
+pulumi up
+
+--- SHOW AWS CONSOLE ---
+
+remove mary pulumi up
+
+--- SHOW AWS CONSOLE ---
+
+
+*** Return to TESTING ***
+
+*** Encrypt and securely store secrets ***
+
+Switch to RDS walkthrough
+
+
+
+If we have time:
+
+*** AWSX CROSSWALK LIBRARY ***
+
+https://www.pulumi.com/registry/packages/awsx/api-docs/ecr/repository/#repositoryencryptionconfiguration
+
+// AWS Crosswalk is a library that simplifies and secures common infrastructure-as-code tasks in AWS by applying automatic best practices. 
+
+We will use AWS crosswalk first to create a repo with a lifecycle policy attached. 
+
+*** AWS LIBRARY ***
+
+// Now we will use the AWS library to create a repo with a lifecycle policy and permissions.
+
+https://www.pulumi.com/registry/packages/aws/api-docs/ecr/repositorypolicy/
+
+*** ECR COMPONENTS ***
+
+https://www.pulumi.com/registry/packages/aws/api-docs/ecr/repository/#inputs
+
+<!-- Another approach to keep your infrastructure organized and reusable is by using Pulumi components or modules. These keep your infrastructure setup into modular, maintainable units that can be easily imported into your main index.ts file. This not only promotes consistency in how your infrastructure is defined, but also simplifies replication across environments or projects. You can export an interface to define the expected inputs and then implement the component using a class for clarity and structure. -->
+
+// Show component and class in index.ts
+
+// The constructor is setting up a custom Pulumi component for creating an ECR repository. The super(...) call registers this component with Pulumi using a custom type string (ecrdemo:aws:ecr). Inside the body of the constructor (not shown yet), you'd typically create actual AWS resources like aws.ecr.Repository.
+
+// Why use pulumi.Input<string>?
+<!-- It gives your infrastructure code flexibility—you can pass either:
+a raw string (like "production"), or
+a value computed from other resources (like bucket.name),  -->
+
+pulumi up
+
+
+
+
+
+
+
+
+
+
